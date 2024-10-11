@@ -246,7 +246,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simulador/images/IconoFrenar.png"))); // NOI18N
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simulador/images/IconoAcelerar.png"))); // NOI18N
 
         jLabel11.setText("FrenoMano");
 
