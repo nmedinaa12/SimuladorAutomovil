@@ -5,42 +5,49 @@
 package autonoma.simulador.models;
 
 import autonoma.simulador.exceptions.LimiteMotorException;
+import autonoma.simulador.exceptions.PatinajeVehiculoException;
+import autonoma.simulador.exceptions.VehiculoAccidentadoException;
+import autonoma.simulador.exceptions.VehiculoApagadoException;
+import autonoma.simulador.exceptions.VehiculoEncendidoException;
 
 /**
  *
  * @author nmedi
  */
 public class Simulador {
-    
-    //Atributos
     private Vehiculo vehiculo;
-    
-    //Constructor
-    public Simulador(Vehiculo vehiculo){
+
+    // Constructor
+    public Simulador(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
-    
-    //Metodos de acceso
-    public double getVelocidadVehiculo(){
-        return this.vehiculo.getVelocidad();
+
+    public void encenderVehiculo() throws VehiculoEncendidoException {
+        vehiculo.encender();
     }
-    //Metodos
-    public void encenderVehiculo(){
-        this.vehiculo.encender();
+
+    public void apagarVehiculo() throws VehiculoApagadoException, VehiculoAccidentadoException {
+        vehiculo.apagar();
+    }
+
+    public void acelerarVehiculo(double velocidad) throws LimiteMotorException, VehiculoApagadoException {
+        vehiculo.acelerar(velocidad);
+    }
+
+    public void frenarVehiculo(double velocidad) throws VehiculoApagadoException {
+        vehiculo.frenar(velocidad);
+    }
+
+    public void frenarBruscamenteVehiculo(double velocidad) throws PatinajeVehiculoException, VehiculoApagadoException {
+        vehiculo.frenarBruscamente(velocidad);
+    }
+
+    public double getVelocidadVehiculo() {
+        return vehiculo.getVelocidad();
     }
     
-    public void apagarVehiculo(){
-        this.vehiculo.apagar();
+    public Vehiculo getVehiculo() {
+        return vehiculo;
     }
-    
-    public void acelerarVehiculo(double velocidad)throws LimiteMotorException{
-        try{
-            this.vehiculo.acelerar(velocidad);
-        } catch(Exception e){
-            this.vehiculo.accidentarVehiculo();
-            throw e;
-        }
-    }
-    
-    
 }
+

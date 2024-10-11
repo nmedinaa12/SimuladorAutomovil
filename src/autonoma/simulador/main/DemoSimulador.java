@@ -1,34 +1,30 @@
 package autonoma.simulador.main;
 
+import autonoma.simulador.exceptions.LimiteMotorException;
+import autonoma.simulador.exceptions.PatinajeVehiculoException;
+import autonoma.simulador.exceptions.VehiculoAccidentadoException;
+import autonoma.simulador.exceptions.VehiculoApagadoException;
+import autonoma.simulador.exceptions.VehiculoEncendidoException;
 import autonoma.simulador.models.Motor;
+import autonoma.simulador.models.Persistencia;
 import autonoma.simulador.models.Simulador;
 import autonoma.simulador.models.Vehiculo;
+import autonoma.simulador.views.VentanaPrincipal;
 
 
 /**
  *
  * @author nmedi
  */
+import java.io.IOException;
+
 public class DemoSimulador {
-    
-    public static void main(String[] args) {
-        
-        Motor motor = new Motor(200,200);
-        Vehiculo vehiculo = new Vehiculo(motor);
+    public static void main(String[] args) throws IOException {
+
+        Vehiculo vehiculo = Persistencia.cargarVehiculo("src/autonoma/packages/txt/config.txt");
         Simulador simulador = new Simulador(vehiculo);
-        
-        simulador.encenderVehiculo();
-        
-        try {
-            simulador.acelerarVehiculo(50);
-            System.out.println(simulador.getVelocidadVehiculo());
-            simulador.acelerarVehiculo(151);
-        } catch (Exception e) {
-            System.out.println("VEHICULO ACCIDENTADO = HA SOBREPASADO LA VELOCIDAD PERMITIDA POR EL MOTOR");
-            System.exit(0);
-        }
-        
-        System.out.println("Has acelerado el vehiculo exitosamente");
+
+        new VentanaPrincipal(simulador).setVisible(true);
     }
-    
 }
+

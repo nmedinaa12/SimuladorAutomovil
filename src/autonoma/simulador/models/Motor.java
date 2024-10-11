@@ -11,59 +11,36 @@ import autonoma.simulador.exceptions.LimiteMotorException;
  * @author nmedi
  */
 public class Motor {
-    
-    // Atributos
     private boolean encendido;
     private double velocidadMaxima;
-    private int cilindraje;
-    
-    //Constructor
-    public Motor(double velocidadMaxima, int cilindraje){
-        this.encendido = false;
+
+    // Constructor
+    public Motor(double velocidadMaxima) {
         this.velocidadMaxima = velocidadMaxima;
-        this.cilindraje = cilindraje;
+        this.encendido = false;
     }
 
-    public boolean isEncendido() {
-        return encendido;
+    public void encender() {
+        this.encendido = true;
+        System.out.println("Motor encendido.");
     }
 
-    public void setEncendido(boolean encendido) {
-        this.encendido = encendido;
+    public void apagar() {
+        this.encendido = false;
+        System.out.println("Motor apagado.");
+    }
+
+    public void validarVelocidadMaxima(double velocidad) throws LimiteMotorException {
+        if (velocidad > this.velocidadMaxima) {
+            throw new LimiteMotorException("Se ha excedido la velocidad máxima del motor.");
+        }
     }
 
     public double getVelocidadMaxima() {
         return velocidadMaxima;
     }
-
-    public void setVelocidadMaxima(double velocidadMaxima) {
-        this.velocidadMaxima = velocidadMaxima;
-    }
-
-    public int getCilindraje() {
-        return cilindraje;
-    }
-
-    public void setCilindraje(int cilindraje) {
-        this.cilindraje = cilindraje;
-    }
     
-    //Metodos
-    public void encender(){ 
-        this.encendido = true;
+    public boolean isEncendido() {
+        return encendido;
     }
-    
-    public void apagar(){
-        this.encendido = false;
-    }
-    
-    //validarVelocidadMaxima
-    public void validarVelocidadMaxima(double velocidad){
-        if(velocidad > this.velocidadMaxima){
-            throw new LimiteMotorException();
-        }
-    }
-    
-    
-    
 }

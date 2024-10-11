@@ -4,17 +4,31 @@
  */
 package autonoma.simulador.views;
 
+import autonoma.simulador.exceptions.LimiteMotorException;
+import autonoma.simulador.exceptions.PatinajeVehiculoException;
+import autonoma.simulador.exceptions.VehiculoAccidentadoException;
+import autonoma.simulador.exceptions.VehiculoApagadoException;
+import autonoma.simulador.exceptions.VehiculoEncendidoException;
+import autonoma.simulador.models.Simulador;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author user
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaPrincipal
-     */
-    public VentanaPrincipal() {
+    private Simulador simulador; // Variable para almacenar el simulador
+    
+    public VentanaPrincipal(Simulador simulador) {
         initComponents();
+        this.simulador = simulador;
+        
+        this.lblVelocidad.setText(String.valueOf(this.simulador.getVehiculo().getVelocidad()));
+        this.lblEstado.setText(String.valueOf(this.simulador.getVehiculo().isEncendido()));
+        this.lblLlantas.setText(String.valueOf(this.simulador.getVehiculo().getMotor().getVelocidadMaxima()));
+        this.lblCilindraje.setText(String.valueOf(this.simulador.getVehiculo().getLlantas().getLimitePatinaje()));
+
     }
 
     /**
@@ -28,6 +42,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        lblVelocidad = new javax.swing.JLabel();
+        lblEstado = new javax.swing.JLabel();
+        lblLlantas = new javax.swing.JLabel();
+        lblCilindraje = new javax.swing.JLabel();
         btnEncender = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -40,25 +58,61 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnApagar = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        btnFrenoMano = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simulador/images/imagen fondo carro.jpg"))); // NOI18N
+
+        lblVelocidad.setText("Velocidad");
+
+        lblEstado.setText("Estado");
+
+        lblLlantas.setText("Llantas");
+
+        lblCilindraje.setText("Cilidraje");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE))
+                .addGap(66, 66, 66)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblVelocidad, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCilindraje, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(80, 80, 80)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 6, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(lblVelocidad, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCilindraje, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblLlantas, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        btnEncender.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEncenderMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnEncenderMouseEntered(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simulador/images/IconoEncender.png"))); // NOI18N
 
@@ -71,9 +125,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             .addGroup(btnEncenderLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(btnEncenderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(btnEncenderLayout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(jLabel3))
+                    .addComponent(jLabel3)
                     .addComponent(jLabel2))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -86,6 +138,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
+
+        btnFrenar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFrenarMouseClicked(evt);
+            }
+        });
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simulador/images/IconoFrenar.png"))); // NOI18N
 
@@ -100,17 +158,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addGroup(btnFrenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         btnFrenarLayout.setVerticalGroup(
             btnFrenarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnFrenarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addContainerGap())
         );
+
+        btnAcelerar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAcelerarMouseClicked(evt);
+            }
+        });
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simulador/images/IconoAcelerar.png"))); // NOI18N
 
@@ -137,6 +201,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        btnApagar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnApagarMouseClicked(evt);
+            }
+        });
+
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simulador/images/IconoApagar.png"))); // NOI18N
 
         jLabel9.setText(" Apagar");
@@ -162,6 +232,37 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        btnFrenoMano.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnFrenoManoMouseClicked(evt);
+            }
+        });
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autonoma/simulador/images/IconoFrenar.png"))); // NOI18N
+
+        jLabel11.setText("FrenoMano");
+
+        javax.swing.GroupLayout btnFrenoManoLayout = new javax.swing.GroupLayout(btnFrenoMano);
+        btnFrenoMano.setLayout(btnFrenoManoLayout);
+        btnFrenoManoLayout.setHorizontalGroup(
+            btnFrenoManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnFrenoManoLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(btnFrenoManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        btnFrenoManoLayout.setVerticalGroup(
+            btnFrenoManoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btnFrenoManoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,6 +279,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(btnAcelerar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(btnFrenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(btnFrenoMano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -186,49 +289,127 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEncender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnFrenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnAcelerar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(btnEncender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFrenar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAcelerar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnFrenoMano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEncenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEncenderMouseClicked
+        try {
+            simulador.encenderVehiculo();
+            this.lblVelocidad.setText(String.valueOf(this.simulador.getVehiculo().getVelocidad()));
+            this.lblEstado.setText(String.valueOf(this.simulador.getVehiculo().isEncendido()));
+            this.lblLlantas.setText(String.valueOf(this.simulador.getVehiculo().getMotor().getVelocidadMaxima()));
+            this.lblCilindraje.setText(String.valueOf(this.simulador.getVehiculo().getLlantas().getLimitePatinaje()));
+            JOptionPane.showMessageDialog(this, "Vehículo encendido.", "Error", JOptionPane.ERROR_MESSAGE);
+        }catch (NumberFormatException e) {
+            // Manejar el error si la entrada no es un número válido
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico válido.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+        } catch (VehiculoEncendidoException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEncenderMouseClicked
+
+    private void btnFrenarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenarMouseClicked
+        try {
+        simulador.frenarVehiculo(40);
+        this.lblVelocidad.setText(String.valueOf(this.simulador.getVehiculo().getVelocidad()));
+        this.lblEstado.setText(String.valueOf(this.simulador.getVehiculo().isEncendido()));
+        this.lblLlantas.setText(String.valueOf(this.simulador.getVehiculo().getMotor().getVelocidadMaxima()));
+        this.lblCilindraje.setText(String.valueOf(this.simulador.getVehiculo().getLlantas().getLimitePatinaje()));
+        }catch (NumberFormatException e) {
+            // Manejar el error si la entrada no es un número válido
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico válido.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+        } catch (VehiculoApagadoException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnFrenarMouseClicked
+
+    private void btnAcelerarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMouseClicked
+        try {
+        simulador.acelerarVehiculo(222);
+        //poner barra ingreso
+        this.lblVelocidad.setText(String.valueOf(this.simulador.getVehiculo().getVelocidad()));
+        this.lblEstado.setText(String.valueOf(this.simulador.getVehiculo().isEncendido()));
+        this.lblLlantas.setText(String.valueOf(this.simulador.getVehiculo().getMotor().getVelocidadMaxima()));
+        this.lblCilindraje.setText(String.valueOf(this.simulador.getVehiculo().getLlantas().getLimitePatinaje()));
+        JOptionPane.showMessageDialog(this, "Vehículo acelerado. Velocidad actual: " + this.simulador.getVelocidadVehiculo() + " Km/h.", "Error", JOptionPane.ERROR_MESSAGE);
+        }catch (NumberFormatException e) {
+            // Manejar el error si la entrada no es un número válido
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico válido.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+        } catch (VehiculoApagadoException e) {
+            JOptionPane.showMessageDialog(this,  e.getMessage() ,"Error", JOptionPane.ERROR_MESSAGE);
+        } catch (LimiteMotorException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage() , "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAcelerarMouseClicked
+
+    private void btnApagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApagarMouseClicked
+        try {
+        simulador.apagarVehiculo();
+        this.lblVelocidad.setText(String.valueOf(this.simulador.getVehiculo().getVelocidad()));
+        this.lblEstado.setText(String.valueOf(this.simulador.getVehiculo().isEncendido()));
+        this.lblLlantas.setText(String.valueOf(this.simulador.getVehiculo().getMotor().getVelocidadMaxima()));
+        this.lblCilindraje.setText(String.valueOf(this.simulador.getVehiculo().getLlantas().getLimitePatinaje()));
+        }catch (NumberFormatException e) {
+            // Manejar el error si la entrada no es un número válido
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico válido.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+        } catch (VehiculoApagadoException e) {
+            JOptionPane.showMessageDialog(this,  e.getMessage() ,"Error", JOptionPane.ERROR_MESSAGE);
+        } catch (VehiculoAccidentadoException e) {
+            JOptionPane.showMessageDialog(this,  e.getMessage() ,"Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnApagarMouseClicked
+
+    private void btnEncenderMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEncenderMouseEntered
+        //
+    }//GEN-LAST:event_btnEncenderMouseEntered
+
+    private void btnFrenoManoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoManoMouseClicked
+        try {
+         // Solicitar la velocidad al usuario
+        String input = JOptionPane.showInputDialog(this, "Por favor, ingrese la velocidad del vehículo:", "Entrada de Velocidad", JOptionPane.QUESTION_MESSAGE);
+        
+    
+        // Convertir el valor ingresado a un número entero
+        int velocidad = Integer.parseInt(input);
+    
+        // Llamar al método frenarBruscamenteVehiculo con la velocidad ingresada
+        simulador.frenarBruscamenteVehiculo(velocidad);
+        
+        this.lblVelocidad.setText(String.valueOf(this.simulador.getVehiculo().getVelocidad()));
+        this.lblEstado.setText(String.valueOf(this.simulador.getVehiculo().isEncendido()));
+        this.lblLlantas.setText(String.valueOf(this.simulador.getVehiculo().getMotor().getVelocidadMaxima()));
+        this.lblCilindraje.setText(String.valueOf(this.simulador.getVehiculo().getLlantas().getLimitePatinaje()));
+        
+        JOptionPane.showMessageDialog(this, "Vehículo acelerado. Velocidad actual: " + this.simulador.getVelocidadVehiculo() + " Km/h.", "Error", JOptionPane.ERROR_MESSAGE);
+        }catch (NumberFormatException e) {
+            // Manejar el error si la entrada no es un número válido
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico válido.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+        }catch (VehiculoApagadoException e) {
+            JOptionPane.showMessageDialog(this,  e.getMessage() ,"Error", JOptionPane.ERROR_MESSAGE);
+        } catch (PatinajeVehiculoException e) {
+            JOptionPane.showMessageDialog(this,  e.getMessage() ,"Error", JOptionPane.ERROR_MESSAGE);
+        }
+            
+    }//GEN-LAST:event_btnFrenoManoMouseClicked
+
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaPrincipal().setVisible(true);
-            }
-        });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -236,7 +417,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel btnApagar;
     private javax.swing.JPanel btnEncender;
     private javax.swing.JPanel btnFrenar;
+    private javax.swing.JPanel btnFrenoMano;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -246,5 +430,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblCilindraje;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblLlantas;
+    private javax.swing.JLabel lblVelocidad;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -8,8 +8,8 @@ package autonoma.simulador.exceptions;
  *
  * @author nmedi
  */
-public class LimiteMotorException extends Exception {
-    public LimiteMotorException(String message) {
+public class VehiculoApagadoException extends Exception {
+    public VehiculoApagadoException(String message) {
         super(message);
     }
 }
