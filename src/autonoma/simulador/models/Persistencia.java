@@ -8,7 +8,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Persistencia {
+
     public static Vehiculo cargarVehiculo(String archivoConfiguracion) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(archivoConfiguracion));
         String linea;
@@ -33,16 +38,26 @@ public class Persistencia {
     private static Llanta crearLlantas(String tipo) {
         switch (tipo) {
             case "Buenas":
-                return new Llanta("Buenas", 110);
+                return new Llanta("Buenas", 110); // Límite de velocidad para "Buenas"
             case "Bonitas":
-                return new Llanta("Bonitas", 90);
+                return new Llanta("Bonitas", 70); // Límite de velocidad para "Bonitas"
+            case "Baratas":
+                return new Llanta("Baratas", 50); // Límite de velocidad para "Baratas"
             default:
-                return new Llanta("Regulares", 80);
+                throw new IllegalArgumentException("Tipo de llanta no válido: " + tipo);
         }
     }
 
-    private static Motor crearMotor(double velocidadMaxima) {
-        return new Motor(velocidadMaxima);
+    private static Motor crearMotor(int cilindraje) {
+        switch (cilindraje) {
+            case 1000:
+                return new Motor(100); // Velocidad máxima para 1000 cc
+            case 2000:
+                return new Motor(160); // Velocidad máxima para 2000 cc
+            case 3000:
+                return new Motor(220); // Velocidad máxima para 3000 cc
+            default:
+                throw new IllegalArgumentException("Cilindraje no válido: " + cilindraje);
+        }
     }
 }
-

@@ -10,6 +10,7 @@ import autonoma.simulador.exceptions.VehiculoAccidentadoException;
 import autonoma.simulador.exceptions.VehiculoApagadoException;
 import autonoma.simulador.exceptions.VehiculoEncendidoException;
 import autonoma.simulador.models.Simulador;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,7 +26,14 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         this.simulador = simulador;
         
         this.lblVelocidad.setText(String.valueOf(this.simulador.getVehiculo().getVelocidad()));
-        this.lblEstado.setText(String.valueOf(this.simulador.getVehiculo().isEncendido()));
+        if (this.simulador.getVehiculo().isEncendido()) {
+        this.lblEstado.setText("Encendido");
+        this.lblEstado.setForeground(Color.GREEN);  // Establece el color verde
+        } else {
+            this.lblEstado.setText("Apagado");
+            this.lblEstado.setForeground(Color.RED);  // Establece el color rojo
+        }
+
         this.lblLlantas.setText(String.valueOf(this.simulador.getVehiculo().getMotor().getVelocidadMaxima()));
         this.lblCilindraje.setText(String.valueOf(this.simulador.getVehiculo().getLlantas().getLimitePatinaje()));
 
@@ -307,25 +315,46 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         try {
             simulador.encenderVehiculo();
             this.lblVelocidad.setText(String.valueOf(this.simulador.getVehiculo().getVelocidad()));
-            this.lblEstado.setText(String.valueOf(this.simulador.getVehiculo().isEncendido()));
-            this.lblLlantas.setText(String.valueOf(this.simulador.getVehiculo().getMotor().getVelocidadMaxima()));
-            this.lblCilindraje.setText(String.valueOf(this.simulador.getVehiculo().getLlantas().getLimitePatinaje()));
+            if (this.simulador.getVehiculo().isEncendido()) {
+                this.lblEstado.setText("Encendido");
+                this.lblEstado.setForeground(Color.GREEN);  // Establece el color verde
+            } else {
+                this.lblEstado.setText("Apagado");
+                this.lblEstado.setForeground(Color.RED);  // Establece el color rojo
+            }
             JOptionPane.showMessageDialog(this, "Vehículo encendido.", "Error", JOptionPane.ERROR_MESSAGE);
-        }catch (NumberFormatException e) {
-            // Manejar el error si la entrada no es un número válido
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico válido.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
         } catch (VehiculoEncendidoException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEncenderMouseClicked
 
     private void btnFrenarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenarMouseClicked
+        
         try {
-        simulador.frenarVehiculo(40);
-        this.lblVelocidad.setText(String.valueOf(this.simulador.getVehiculo().getVelocidad()));
-        this.lblEstado.setText(String.valueOf(this.simulador.getVehiculo().isEncendido()));
-        this.lblLlantas.setText(String.valueOf(this.simulador.getVehiculo().getMotor().getVelocidadMaxima()));
-        this.lblCilindraje.setText(String.valueOf(this.simulador.getVehiculo().getLlantas().getLimitePatinaje()));
+            if (this.simulador.getVehiculo().isEncendido()!=false){
+                // Solicitar la velocidad al usuario
+                String input = JOptionPane.showInputDialog(this, "Por favor, ingrese la velocidad de frenado:", "Entrada de Velocidad", JOptionPane.QUESTION_MESSAGE);
+        
+    
+                // Convertir el valor ingresado a un número entero
+                int velocidad = Integer.parseInt(input);
+    
+                // Llamar al método frenarBruscamenteVehiculo con la velocidad ingresada
+                simulador.frenarVehiculo(velocidad);
+                
+                
+                JOptionPane.showMessageDialog(this, "Vehículo frenado. Velocidad actual: " + this.simulador.getVelocidadVehiculo() + " Km/h.", "Error", JOptionPane.ERROR_MESSAGE);
+                this.lblVelocidad.setText(String.valueOf(this.simulador.getVehiculo().getVelocidad()));
+                if (this.simulador.getVehiculo().isEncendido()) {
+                    this.lblEstado.setText("Encendido");
+                    this.lblEstado.setForeground(Color.GREEN);  // Establece el color verde
+                } else {
+                    this.lblEstado.setText("Apagado");
+                    this.lblEstado.setForeground(Color.RED);  // Establece el color rojo
+                }
+                }else{
+                simulador.frenarVehiculo(0); 
+                }
         }catch (NumberFormatException e) {
             // Manejar el error si la entrada no es un número válido
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico válido.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
@@ -336,13 +365,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void btnAcelerarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMouseClicked
         try {
-        simulador.acelerarVehiculo(222);
+            if (this.simulador.getVehiculo().isEncendido()!=false){
+                // Solicitar la velocidad al usuario
+                String input = JOptionPane.showInputDialog(this, "Por favor, ingrese la velocidad del vehículo:", "Entrada de Velocidad", JOptionPane.QUESTION_MESSAGE);
+        
+    
+                // Convertir el valor ingresado a un número entero
+                int velocidad = Integer.parseInt(input);
+    
+                // Llamar al método frenarBruscamenteVehiculo con la velocidad ingresada
+                simulador.acelerarVehiculo(velocidad);
+                
+                this.lblVelocidad.setText(String.valueOf(this.simulador.getVehiculo().getVelocidad()));
+                if (this.simulador.getVehiculo().isEncendido()) {
+                    this.lblEstado.setText("Encendido");
+                    this.lblEstado.setForeground(Color.GREEN);  // Establece el color verde
+                } else {
+                    this.lblEstado.setText("Apagado");
+                    this.lblEstado.setForeground(Color.RED);  // Establece el color rojo
+                }
+                
+                JOptionPane.showMessageDialog(this, "Vehículo acelerado. Velocidad actual: " + this.simulador.getVelocidadVehiculo() + " Km/h.", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                simulador.acelerarVehiculo(0); 
+                }
+        
         //poner barra ingreso
-        this.lblVelocidad.setText(String.valueOf(this.simulador.getVehiculo().getVelocidad()));
-        this.lblEstado.setText(String.valueOf(this.simulador.getVehiculo().isEncendido()));
-        this.lblLlantas.setText(String.valueOf(this.simulador.getVehiculo().getMotor().getVelocidadMaxima()));
-        this.lblCilindraje.setText(String.valueOf(this.simulador.getVehiculo().getLlantas().getLimitePatinaje()));
-        JOptionPane.showMessageDialog(this, "Vehículo acelerado. Velocidad actual: " + this.simulador.getVelocidadVehiculo() + " Km/h.", "Error", JOptionPane.ERROR_MESSAGE);
+       
         }catch (NumberFormatException e) {
             // Manejar el error si la entrada no es un número válido
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico válido.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
@@ -356,10 +405,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void btnApagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApagarMouseClicked
         try {
         simulador.apagarVehiculo();
+        
         this.lblVelocidad.setText(String.valueOf(this.simulador.getVehiculo().getVelocidad()));
-        this.lblEstado.setText(String.valueOf(this.simulador.getVehiculo().isEncendido()));
-        this.lblLlantas.setText(String.valueOf(this.simulador.getVehiculo().getMotor().getVelocidadMaxima()));
-        this.lblCilindraje.setText(String.valueOf(this.simulador.getVehiculo().getLlantas().getLimitePatinaje()));
+            if (this.simulador.getVehiculo().isEncendido()) {
+                this.lblEstado.setText("Encendido");
+                this.lblEstado.setForeground(Color.GREEN);  // Establece el color verde
+            } else {
+                this.lblEstado.setText("Apagado");
+                this.lblEstado.setForeground(Color.RED);  // Establece el color rojo
+            }
+        
+        JOptionPane.showMessageDialog(this, "Vehículo apagado.", "Error", JOptionPane.ERROR_MESSAGE);
+        
         }catch (NumberFormatException e) {
             // Manejar el error si la entrada no es un número válido
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un valor numérico válido.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
@@ -376,20 +433,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void btnFrenoManoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoManoMouseClicked
         try {
-         // Solicitar la velocidad al usuario
-        String input = JOptionPane.showInputDialog(this, "Por favor, ingrese la velocidad del vehículo:", "Entrada de Velocidad", JOptionPane.QUESTION_MESSAGE);
-        
-    
-        // Convertir el valor ingresado a un número entero
-        int velocidad = Integer.parseInt(input);
-    
-        // Llamar al método frenarBruscamenteVehiculo con la velocidad ingresada
-        simulador.frenarBruscamenteVehiculo(velocidad);
+        simulador.frenarBruscamenteVehiculo();
         
         this.lblVelocidad.setText(String.valueOf(this.simulador.getVehiculo().getVelocidad()));
         this.lblEstado.setText(String.valueOf(this.simulador.getVehiculo().isEncendido()));
-        this.lblLlantas.setText(String.valueOf(this.simulador.getVehiculo().getMotor().getVelocidadMaxima()));
-        this.lblCilindraje.setText(String.valueOf(this.simulador.getVehiculo().getLlantas().getLimitePatinaje()));
+
         
         JOptionPane.showMessageDialog(this, "Vehículo acelerado. Velocidad actual: " + this.simulador.getVelocidadVehiculo() + " Km/h.", "Error", JOptionPane.ERROR_MESSAGE);
         }catch (NumberFormatException e) {
@@ -399,8 +447,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,  e.getMessage() ,"Error", JOptionPane.ERROR_MESSAGE);
         } catch (PatinajeVehiculoException e) {
             JOptionPane.showMessageDialog(this,  e.getMessage() ,"Error", JOptionPane.ERROR_MESSAGE);
-        }
-            
+        }    
     }//GEN-LAST:event_btnFrenoManoMouseClicked
 
 

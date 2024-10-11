@@ -112,15 +112,15 @@ public class Vehiculo {
     }
 
     // Frenar bruscamente
-    public void frenarBruscamente(double decremento) throws PatinajeVehiculoException, VehiculoApagadoException {
+    public void frenarBruscamente() throws PatinajeVehiculoException, VehiculoApagadoException {
         if (this.velocidad > llantas.getLimitePatinaje()) {
             this.patinar();
             throw new PatinajeVehiculoException("El vehículo patinó al frenar bruscamente.");
-        } else if (decremento > this.velocidad) {
+        } else if (0 > this.velocidad) {
             this.patinar();
             throw new PatinajeVehiculoException("El vehículo patinó por frenar bruscamente con mayor intensidad que la velocidad.");
         }
-        this.frenar(decremento);
+        this.frenar(this.velocidad);
     }
 
     // Accidentar el vehículo

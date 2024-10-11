@@ -1,2 +1,2 @@
-llantas Buenas
-motor 3000
+llantas Baratas
+motor 1000

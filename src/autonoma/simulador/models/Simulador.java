@@ -38,8 +38,8 @@ public class Simulador {
         vehiculo.frenar(velocidad);
     }
 
-    public void frenarBruscamenteVehiculo(double velocidad) throws PatinajeVehiculoException, VehiculoApagadoException {
-        vehiculo.frenarBruscamente(velocidad);
+    public void frenarBruscamenteVehiculo() throws PatinajeVehiculoException, VehiculoApagadoException {
+        vehiculo.frenarBruscamente();
     }
 
     public double getVelocidadVehiculo() {

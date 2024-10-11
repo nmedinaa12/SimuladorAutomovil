@@ -1,11 +1,5 @@
 package autonoma.simulador.main;
 
-import autonoma.simulador.exceptions.LimiteMotorException;
-import autonoma.simulador.exceptions.PatinajeVehiculoException;
-import autonoma.simulador.exceptions.VehiculoAccidentadoException;
-import autonoma.simulador.exceptions.VehiculoApagadoException;
-import autonoma.simulador.exceptions.VehiculoEncendidoException;
-import autonoma.simulador.models.Motor;
 import autonoma.simulador.models.Persistencia;
 import autonoma.simulador.models.Simulador;
 import autonoma.simulador.models.Vehiculo;
