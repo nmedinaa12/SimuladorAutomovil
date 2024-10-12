@@ -1,0 +1,76 @@
+[33mcommit 3dd8bba9e3d0863569ffe9e65405fea9ecb245d6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Merge: 6ae457c b035919
+Author: Nicolas Medina <nicofeme2015@gmail.com>
+Date:   Fri Oct 11 18:07:21 2024 -0500
+
+    Merge branch 'main' of github.com:nmedinaa12/SimuladorAutomovil
+    
+    # Conflicts:
+    #       src/autonoma/simulador/views/VentanaPrincipal.form
+    #       src/autonoma/simulador/views/VentanaPrincipal.java
+
+[33mcommit 6ae457c646b52ae323d8866ccdd42df3ccbf6490[m
+Author: Nicolas Medina <nicofeme2015@gmail.com>
+Date:   Fri Oct 11 17:53:19 2024 -0500
+
+    Cambios errores excepciones
+
+[33mcommit b035919243e8edc77c13832771a7b5c9ae6aeac4[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Mariana Salgado Lopez <marisalgadolopez@gmail.com>
+Date:   Fri Oct 11 17:49:20 2024 -0500
+
+     Mejora Ventana Principal
+
+[33mcommit 7470f9dda9af2ce6834ec657125ab6c7fc03e5aa[m
+Author: Nicolas Medina <nicofeme2015@gmail.com>
+Date:   Fri Oct 11 17:18:12 2024 -0500
+
+    Cambios Visuales
+
+[33mcommit 76ece5ee36d3d3260e953525ac199b53200d33db[m
+Author: Mariana Salgado Lopez <marisalgadolopez@gmail.com>
+Date:   Fri Oct 11 17:07:03 2024 -0500
+
+    Cambios Visuales
+
+[33mcommit bfe98c46aca97c4003d7339acb75d06e2721958b[m
+Author: Nicolas Medina <nicofeme2015@gmail.com>
+Date:   Fri Oct 11 16:52:06 2024 -0500
+
+    Cambios excepciones y errores visuales
+
+[33mcommit 22d6ae7f079cc741d902f923c3318c5883078a0e[m
+Author: Nicolas Medina <nicofeme2015@gmail.com>
+Date:   Fri Oct 11 15:19:17 2024 -0500
+
+    Actualizacion Codigo
+
+[33mcommit 982b03fae6a699d439f33e94b4a9b312cb405b6e[m
+Author: Mariana Salgado Lopez <marisalgadolopez@gmail.com>
+Date:   Thu Oct 10 18:43:13 2024 -0500
+
+    Ventana principal
+
+[33mcommit 5e712e6d1764e00f5ff522e36952fb7f70e1da2b[m
+Author: Mariana Salgado Lopez <marisalgadolopez@gmail.com>
+Date:   Thu Oct 10 17:29:12 2024 -0500
+
+     imagen fondo
+
+[33mcommit be4a401aa57bd47cbfc724e37d0f691e36808611[m
+Author: Mariana Salgado Lopez <marisalgadolopez@gmail.com>
+Date:   Thu Oct 10 16:32:49 2024 -0500
+
+    agregar imagen
+
+[33mcommit 012b78f22372957a49214c7d4fc1c85fedbeb41f[m
+Author: Mariana Salgado Lopez <marisalgadolopez@gmail.com>
+Date:   Thu Oct 10 16:10:35 2024 -0500
+
+    Creacion clase llanta
+
+[33mcommit 4e211581c1552fbf5a278134790347045bb21d5d[m
+Author: Nicolas Medina <nicofeme2015@gmail.com>
+Date:   Wed Oct 9 16:24:06 2024 -0500
+
+    Subir proyecto al repositorio
